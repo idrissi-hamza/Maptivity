@@ -8,6 +8,16 @@ export const GlobalReducer = (state, action) => {
       return { ...state, disableInput: false };
     case "DISABLE_FORM":
       return { ...state, disableInput: true };
+    case "LOCATION":
+      return { ...state, location: action.payload };
+    case "ADD_NOTE":
+      return {
+        ...state,
+        notesList: [
+          ...state.notesList,
+          { value: action.payload, id: Date.now() + "", ...state.location},
+        ],
+      };
     default:
       return state;
   }
@@ -16,6 +26,7 @@ export const GlobalReducer = (state, action) => {
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GlobalReducer, {
     disableInput: true,
+    notesList: [],
   });
   console.log(state);
   return (

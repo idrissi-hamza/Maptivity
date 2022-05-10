@@ -16,7 +16,7 @@ const ICON = icon({
 });
 
 const Map = () => {
-  const { dispatch} = useContext(GlobalContext);
+  const { dispatch } = useContext(GlobalContext);
   const ZOOM = 13;
   const [location, setLocation] = useState({
     loading: true,
@@ -53,7 +53,8 @@ const Map = () => {
         console.log(e.latlng);
         setPosition(e.latlng);
 
-        dispatch({type:'ENABLE_FORM'})
+        dispatch({ type: "ENABLE_FORM" });
+        dispatch({ type: "LOCATION", payload: e.latlng });
         // map.locate(e);
       },
       // locationfound(e) {

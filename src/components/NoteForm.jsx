@@ -6,7 +6,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import { useContext } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-const NoteForm = ({ submit }) => {
+const NoteForm = () => {
   const context = useContext(GlobalContext);
   const { dispatch, disableInput } = context;
 
@@ -15,7 +15,10 @@ const NoteForm = ({ submit }) => {
   const [value, setValue] = useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    submit(value);
+    // submit(value);
+    dispatch({ type: "ADD_NOTE", payload: value });
+
+
     setValue("");
     dispatch({ type: "DISABLE_FORM" });
 
