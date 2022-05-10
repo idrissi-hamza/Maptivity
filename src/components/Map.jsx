@@ -1,22 +1,10 @@
 import React from "react";
 import { useState, useEffect, useContext } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
-import { icon } from "leaflet";
-import { GlobalContext } from "../context/GlobalContext";
+import { MapContainer, TileLayer } from "react-leaflet";
 
-const ICON = icon({
-  iconUrl: "/marker.png",
-  iconSize: [32, 32],
-});
+import LocationMarker from "./LocationMarker";
 
 const Map = () => {
-  const { dispatch } = useContext(GlobalContext);
   const ZOOM = 13;
   const [location, setLocation] = useState({
     loading: true,
@@ -45,30 +33,6 @@ const Map = () => {
       );
     }
   }, []);
-
-  function LocationMarker() {
-    const [position, setPosition] = useState(null);
-    const map = useMapEvents({
-      click(e) {
-        console.log(e.latlng);
-        setPosition(e.latlng);
-
-        dispatch({ type: "ENABLE_FORM" });
-        dispatch({ type: "LOCATION", payload: e.latlng });
-        // map.locate(e);
-      },
-      // locationfound(e) {
-      //   setPosition(e.latlng);
-      //   map.flyTo(e.latlng, map.getZoom());
-      // },
-    });
-
-    return position === null ? null : (
-      <Marker className="" icon={ICON} position={position}>
-        <Popup>You are here</Popup>
-      </Marker>
-    );
-  }
 
   return (
     <div className="w-full">
