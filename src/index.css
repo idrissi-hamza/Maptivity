@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer base {
-  body  {
-    @apply h-screen bg-slate-400;
-  }
- }  */
+
  @import url("~leaflet/dist/leaflet.css");
 
 .leaflet-container {
