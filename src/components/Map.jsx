@@ -1,6 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+} from "react-leaflet";
 import { icon } from "leaflet";
 const ICON = icon({
   iconUrl: "/marker.png",
@@ -36,31 +42,46 @@ const Map = () => {
       );
     }
   }, []);
+
+  function LocationMarker() {
+    const [position, setPosition] = useState(null);
+    const map = useMapEvents({
+      click(e) {
+        console.log(e.latlng);
+        setPosition(e.latlng);
+
+        // map.locate(e);
+      },
+      // locationfound(e) {
+      //   setPosition(e.latlng);
+      //   map.flyTo(e.latlng, map.getZoom());
+      // },
+    });
+
+    return position === null ? null : (
+      <Marker icon={ICON} position={position}>
+        <Popup>You are here</Popup>
+      </Marker>
+    );
+  }
+
   return (
     <div className="w-full">
-      {!location.loading &&
-        !location.err && (
-          <MapContainer
-            center={[location.coordinates.lat, location.coordinates.lng]}
-            zoom={ZOOM}
-            scrollWheelZoom={false}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/* {!location.loading && !location.err && (
-          <Marker
-            icon={ICON}
-            position={[location.coordinates.lat, location.coordinates.lng]}
-          >
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        )} */}
-          </MapContainer>
-        )}
+      {!location.loading && !location.err && (
+        <MapContainer
+          center={[location.coordinates.lat, location.coordinates.lng]}
+          zoom={ZOOM}
+          scrollWheelZoom={false}
+          // onClick={}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+         
+          <LocationMarker />
+        </MapContainer>
+      )}
     </div>
   );
 };
