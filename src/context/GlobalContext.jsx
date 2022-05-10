@@ -4,9 +4,10 @@ export const GlobalContext = createContext();
 
 export const GlobalReducer = (state, action) => {
   switch (action.type) {
-    case " MAP_CLICKED":
-      return { ...state, mapClicked: true };
-
+    case "ENABLE_FORM":
+      return { ...state, disableInput: false };
+    case "DISABLE_FORM":
+      return { ...state, disableInput: true };
     default:
       return state;
   }
@@ -14,8 +15,9 @@ export const GlobalReducer = (state, action) => {
 
 export const GlobalContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GlobalReducer, {
-    mapClicked: false,
+    disableInput: true,
   });
+  console.log(state);
   return (
     <GlobalContext.Provider value={{ ...state, dispatch }}>
       {children}

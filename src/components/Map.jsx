@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -8,12 +8,15 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { icon } from "leaflet";
+import { GlobalContext } from "../context/GlobalContext";
+
 const ICON = icon({
   iconUrl: "/marker.png",
   iconSize: [32, 32],
 });
 
 const Map = () => {
+  const { dispatch} = useContext(GlobalContext);
   const ZOOM = 13;
   const [location, setLocation] = useState({
     loading: true,
@@ -50,6 +53,7 @@ const Map = () => {
         console.log(e.latlng);
         setPosition(e.latlng);
 
+        dispatch({type:'ENABLE_FORM'})
         // map.locate(e);
       },
       // locationfound(e) {
@@ -59,7 +63,7 @@ const Map = () => {
     });
 
     return position === null ? null : (
-      <Marker className='' icon={ICON} position={position}>
+      <Marker className="" icon={ICON} position={position}>
         <Popup>You are here</Popup>
       </Marker>
     );
@@ -78,7 +82,7 @@ const Map = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-         
+
           <LocationMarker />
         </MapContainer>
       )}
