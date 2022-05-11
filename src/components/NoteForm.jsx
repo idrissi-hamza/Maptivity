@@ -43,9 +43,9 @@ const NoteForm = () => {
         disabled={disableInput}
         ref={inputRef}
       />
-      <button className="pr-1 text-2xl hover:text-yellow-500 scale-110  text-yellow-400 active:scale-95 ">
+     {!disableInput && <button className="pr-1 text-2xl hover:text-yellow-500 scale-110  text-yellow-400 active:scale-95 ">
         <FontAwesomeIcon icon={faPlusCircle} />
-      </button>
+      </button>}
     </form>
   );
 };
