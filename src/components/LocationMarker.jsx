@@ -6,7 +6,7 @@ import { useContext } from "react";
 
 function LocationMarker() {
   const ICON = icon({
-    iconUrl: "/marker.png",
+    iconUrl: "/markers.png",
     iconSize: [32, 32],
   });
   const { dispatch } = useContext(GlobalContext);

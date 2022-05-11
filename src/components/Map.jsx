@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 
 import LocationMarker from "./LocationMarker";
+import Locations from "./Locations";
 
 const Map = () => {
   const ZOOM = 13;
@@ -10,6 +11,7 @@ const Map = () => {
     loading: true,
     coordinates: { lat: "", lng: "" },
   });
+
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -47,8 +49,8 @@ const Map = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
           <LocationMarker />
+          <Locations />
         </MapContainer>
       )}
     </div>
